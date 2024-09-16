@@ -1,4 +1,6 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TodoApp;
@@ -14,6 +16,16 @@ builder.Services.AddOpenApiDocument(config =>
     config.Version = "v1";
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy => 
+                policy.WithOrigins("https://localhost:7232", "http://localhost:5204")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()); // Allow credentials (cookies)
+});
+
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme).AddCookie(IdentityConstants.ApplicationScheme)
     .AddBearerToken(IdentityConstants.BearerScheme);
@@ -25,6 +37,7 @@ builder.Services.AddIdentityCore<User>()
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
 
+builder.Services.AddSingleton<HttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -39,7 +52,19 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseCors("AllowSpecificOrigin");
+
 app.MapIdentityApi<User>();
+
+app.MapPost("/logout", async ( HttpContext context, ApplicationDbContext db) =>
+{
+    //await manager.SignOutAsync().ConfigureAwait(false);
+    await context.SignOutAsync(IdentityConstants.ApplicationScheme);
+
+    return Results.Ok(new { message = "Logged out successfully" });
+
+}).RequireAuthorization();
+
 
 app.MapGet("/user", async (ClaimsPrincipal claims, ApplicationDbContext db) =>
 {

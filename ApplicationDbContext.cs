@@ -9,6 +9,7 @@ public class ApplicationDbContext : IdentityDbContext<User>
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
     {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

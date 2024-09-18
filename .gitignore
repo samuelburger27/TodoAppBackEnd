@@ -5,9 +5,10 @@ obj/
 txt
 
 bin/
-
+.config/
 .DS_Store/
 .DS_Store
-
+appsettings.Production.json
 Migrations/
 
+appsettings.json

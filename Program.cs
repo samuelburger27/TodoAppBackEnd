@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         policy => 
-                policy.WithOrigins("https://localhost:7232", "http://localhost:5204")
+                policy.WithOrigins("https://app.samuelburger.me", "http://app.samuelburger.me")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()); // Allow credentials (cookies)

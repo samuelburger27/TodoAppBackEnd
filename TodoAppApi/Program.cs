@@ -19,8 +19,8 @@ builder.Services.AddOpenApiDocument(config =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
-        policy => 
-                policy.WithOrigins("https://app.samuelburger.me", "http://app.samuelburger.me")
+        policy =>
+                policy.WithOrigins("https://localhost:5204", "http://localhost:5204")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()); // Allow credentials (cookies)
@@ -56,7 +56,7 @@ app.UseCors("AllowSpecificOrigin");
 
 app.MapIdentityApi<User>();
 
-app.MapPost("/logout", async ( HttpContext context, ApplicationDbContext db) =>
+app.MapPost("/logout", async (HttpContext context, ApplicationDbContext db) =>
 {
     //await manager.SignOutAsync().ConfigureAwait(false);
     await context.SignOutAsync(IdentityConstants.ApplicationScheme);
@@ -114,7 +114,7 @@ app.MapPut("/todoitems/{id}", async (ClaimsPrincipal claims, int id, Todo inputT
     var todo = await db.Todos.FindAsync(id);
     if (todo is null || todo.user_id != userId)
         return Results.NotFound();
-    
+
     todo.update_todo(inputTodo);
     await db.SaveChangesAsync();
     return Results.NoContent();

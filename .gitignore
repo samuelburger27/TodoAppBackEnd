@@ -12,3 +12,5 @@ appsettings.Production.json
 Migrations/
 
 appsettings.json
+
+MailScript/run.sh

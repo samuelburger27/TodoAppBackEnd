@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 using TodoApp;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,8 +35,10 @@ builder.Services.AddIdentityCore<User>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddApiEndpoints();
 
+string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ??
+                          throw new Exception("Specify Connection String");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddSingleton<HttpContextAccessor, HttpContextAccessor>();
 

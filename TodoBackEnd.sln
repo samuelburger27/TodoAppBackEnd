@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoAppApi", "TodoAppApi\To
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailScript", "MailScript\MailScript.csproj", "{605B730F-7800-49AB-9717-019F39A3DFA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{66DC3854-C017-4EC4-B634-680E51005AF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{605B730F-7800-49AB-9717-019F39A3DFA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{605B730F-7800-49AB-9717-019F39A3DFA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{605B730F-7800-49AB-9717-019F39A3DFA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66DC3854-C017-4EC4-B634-680E51005AF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66DC3854-C017-4EC4-B634-680E51005AF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66DC3854-C017-4EC4-B634-680E51005AF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66DC3854-C017-4EC4-B634-680E51005AF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
